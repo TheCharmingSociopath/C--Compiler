@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\angl}[1]{$\langle$#1$\rangle$}
+\newcommand{\curl}[1]{$\{$ #1 $\}$}
+\newcommand{\lra}[0]{$\longrightarrow$}
+
+\title{C-- Language Manual}
+\author{Aditya Morolia; Roll No.: 20171177}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+This is a language manual for my programming language \verb|C--|, a subset of the language C made to learn more about compilers and programming languages. This manual contains the micro and macro syntax of the language. 
+
+\section{Remarks}
+\begin{itemize}
+    \item All \verb|C--| keywords are lower case, and identifiers and keywords are case sensitive. 
+    \item Meta notations are references to describe the grammar.
+    \item Micro syntax is described as a regex and the macro syntax is described using context free grammar. 
+\end{itemize}
+
+\subsection{Meta notations}
+\begin{tabular}{|c|c|} \hline
+    \verb|<foo>| & foo is a non-terminal symbol \\ \hline
+    \textbf{foo} or `foo' & foo is a terminal symbol \\ \hline
+    [x]  & 0 or 1 occurrence of x \\ \hline
+    x*  & zero or more occurrence of x \\ \hline
+    $\text{x}^+$,  & comma separated list of one or more x \\ \hline 
+    \{ \} & grouping \\ \hline
+    \textbar  & separate alternatives \\ \hline
+\end{tabular}
+
+\section{Macro Syntax}
+
+\begin{tabbing}
+\angl{var\_decl} \lra \angl{type} \curl{ \= \angl{id} \\
+\> $|$ \angl{id} `=' \angl{literal} \\
+\> $|$ \angl{id} `[' \angl{int\_literal} `]' \\
+\> $|$ \angl{id} `[' \angl{int\_literal} `][' \angl{int\_literal} `]'}$^+$, ; \\ \\
+\angl{method\_decl} \lra \curl{\angl{type} $|$ \textbf{void} } \angl{id} ( [ \curl{\angl{type} \angl{id}}$^+$, ]  ) \angl{block} \\ \\
+\angl{block} \lra `\{' \angl{var\_decl}$^*$ \angl{statement}$^*$ `\}' \\ \\
+\angl{type} \lra \textbf{int} $|$ \textbf{bool} $|$ \textbf{float} \\ \\
+\angl{statement} \lra \= \angl{location} \angl{assign\_op} \angl{expr} ; \\
+\> $|$ \angl{method\_call} ; \\
+\> $|$ \textbf{if} ( \angl{expr} ) \angl{block} [ \textbf{else} \angl{block} ] \\
+\> $|$ \angl{expr} \textbf{?} \angl{statement} \textbf{:} \angl{statement} ; \\
+\> $|$ \textbf{while}(\angl{expr}) \angl{block} \\
+\> $|$ \textbf{for} ([\angl{id}=\angl{expr}]; [\angl{expr}]; [\angl{expr}]) \angl{block} \\
+\> $|$ \textbf{return}  [\angl{expr}] ; \\
+\> $|$ \textbf{break} ; \\
+\> $|$ \textbf{continue} ; \\
+\> $|$ \angl{block} \\ \\
+\angl{method\_call} \lra \= \textbf{callout} ( \angl{string\_literal} [,\angl{callout\_arg}$^+$,]) \\
+\> $|$ \angl{method\_name} ( [ \angl{expr}$^+$, ] ) \\ \\
+\angl{location} \lra \= \angl{id} \\
+\> $|$ \angl{id}`[' \angl{expr} `]' \\
+\> $|$ \angl{id}`[' \angl{expr} `][' \angl{expr} `]' \\ \\
+\angl{expr} \lra \= \angl{location} \\
+\> $|$ \angl{method\_call} \\
+\> $|$ \angl{literal} \\
+\> $|$ \angl{expr} \angl{bin\_op} \angl{expr} \\
+\> $|$ - \angl{expr} \\
+\> $|$ ! \angl{expr} \\
+\> $|$ (\angl{expr}) \\ \\
+\angl{callout\_arg} \lra \angl{expr} $|$ \angl{string\_literal} \\ \\
+\angl{bin\_op} \lra \angl{arith\_op} $|$ \angl{rel\_op} $|$ \angl{eq\_op} $|$ \angl{cond\_op} \\ \\
+\angl{literal} \lra \angl{int\_literal} $|$ \angl{char\_literal} $|$ \angl{bool\_literal} $|$ \angl{float\_literal} \\ \\
+\end{tabbing}
+
+\section{Micro Syntax}
+
+\begin{tabular}{|c|c|} \hline
+Token & RegEx \\ \hline
+\angl{string\_literal} & ``\angl{char}*"  \\ \hline
+\angl{char\_literal} & `\angl{char}'  \\ \hline
+\angl{bool\_literal} & \textbf{true} $|$ \textbf{false}  \\ \hline
+\angl{int\_literal} & [+-]?[0-9]$^+$  \\ \hline
+\angl{id} & [a-zA-Z][a-zA-Z0-9]*  \\ \hline
+\angl{eq\_op} & $ ==\ |\ !=$  \\ \hline
+\angl{rel\_op} & $<=\ |\ >=\ |\ <\ |\ >$  \\ \hline
+\angl{arith\_op} & $+\ |\ -\ |\ *\ |\ /\ |\ \%$  \\ \hline
+\angl{cond\_op} & $||\ |\ \&\&$ \\ \hline
+\angl{assign\_op} & $+=\ |\ -=\ |\ =$  \\ \hline
+\angl{type} & \textbf{int} $|$ \textbf{uint} $|$ \textbf{bool} $|$ \textbf{char}  \\ \hline
+\angl{float\_literal} & [+-]?([0-9]*[.])?[0-9]+ \\ \hline
+\end{tabular}
+
+\section{Semantic Checks}
+A program can be completely correct syntactically but have no meaning semantically at all. Therefore, the compiler should run semantic checks on the source. Following semantic checks are bare minimum and should be performed:
+
+\begin{enumerate}
+    \item \textbf{Undeclared Variable:} Check if all the identifiers/variables
+are declared before use in the same scope.
+    \item \textbf{Scope rules:} Check that every variable has been declared before it is used.
+    \item \textbf{Expression type mismatch:} Check if the type of the value finally assigned to a variable is the same as the variable type.
+    \item \textbf{Re-declaration of variables:} Check that no identifier has been re-declared in the current scope.
+    \item \textbf{Method signature and parameter type mismatch:} Check that every parameter passed in a method call corresponds to the type of the argument in the method signature.
+    \item \textbf{Misuse of keyword or reserved word:} Check that no reserved word has been used as an identifier.
+    \item \textbf{Array length:} Check if array ranges are within bounds and length is positive.
+\end{enumerate}
+
+\end{document}
+
