@@ -68,7 +68,7 @@ This is a language manual for my programming language \verb|C--|, a subset of th
 \> $|$ ! \angl{expr} \\
 \> $|$ (\angl{expr}) \\ \\
 \angl{callout\_arg} \lra \angl{expr} $|$ \angl{string\_literal} \\ \\
-\angl{bin\_op} \lra \angl{arith\_op} $|$ \angl{rel\_op} $|$ \angl{eq\_op} $|$ \angl{cond\_op} \\ \\
+\angl{bin\_op} \lra \angl{arith\_op} $|$ \angl{rel\_op} $|$ \angl{eq\_op} $|$ \angl{cond\_op} $|$ \angl{bool\_op} \\ \\
 \angl{literal} \lra \angl{int\_literal} $|$ \angl{char\_literal} $|$ \angl{bool\_literal} $|$ \angl{float\_literal} \\ \\
 \end{tabbing}
 
@@ -88,6 +88,7 @@ Token & RegEx \\ \hline
 \angl{assign\_op} & $+=\ |\ -=\ |\ =$  \\ \hline
 \angl{type} & \textbf{int} $|$ \textbf{uint} $|$ \textbf{bool} $|$ \textbf{char}  \\ \hline
 \angl{float\_literal} & [+-]?([0-9]*[.])?[0-9]+ \\ \hline
+\angl{bool\_op} & \& $|$ $|$ $|$ ! \\ \hline
 \end{tabular}
 
 \section{Semantic Checks}
@@ -105,4 +106,3 @@ are declared before use in the same scope.
 \end{enumerate}
 
 \end{document}
-

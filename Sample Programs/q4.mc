@@ -8,10 +8,10 @@ void main()
     {
         for(i=1; i<m; i++)
         {
-            a = m*m-n*n;
-            b = 2*m*n;
-            c = m*m+n*n;
-            if(c > limit)
+            a = m*m-i*i;
+            b = 2*m*i;
+            c = m*m+i*i;
+            if(c > z)
             {
                 break;
             }

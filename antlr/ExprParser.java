@@ -16,8 +16,9 @@ public class ExprParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, FLOAT=9, 
-		ARITH_OP=10, EQ_OP=11, REL_OP=12, INT=13, ID=14, COMMENT=15, NS=16;
+		T__0=1, T__1=2, T__2=3, FLOAT=4, MUL_OP=5, DIV_OP=6, REM_OP=7, ADD_OP=8, 
+		SUB_OP=9, EQUALITY_OP=10, RELATIONAL_OP=11, INT=12, IDENTIFIER=13, COMMENT=14, 
+		NS=15;
 	public static final int
 		RULE_prog = 0, RULE_expr = 1, RULE_literal = 2;
 	private static String[] makeRuleNames() {
@@ -29,14 +30,15 @@ public class ExprParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "';'", "'-'", "'('", "')'", "'*'", "'/'", "'%'", "'+'"
+			null, "';'", "'('", "')'", null, "'*'", "'/'", "'%'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, "FLOAT", "ARITH_OP", 
-			"EQ_OP", "REL_OP", "INT", "ID", "COMMENT", "NS"
+			null, null, null, null, "FLOAT", "MUL_OP", "DIV_OP", "REM_OP", "ADD_OP", 
+			"SUB_OP", "EQUALITY_OP", "RELATIONAL_OP", "INT", "IDENTIFIER", "COMMENT", 
+			"NS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -139,7 +141,7 @@ public class ExprParser extends Parser {
 				setState(11); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__2) | (1L << FLOAT) | (1L << INT) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << FLOAT) | (1L << SUB_OP) | (1L << INT) | (1L << IDENTIFIER))) != 0) );
 			setState(13);
 			match(EOF);
 			}
@@ -156,18 +158,23 @@ public class ExprParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(ExprParser.ID, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(ExprParser.IDENTIFIER, 0); }
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
+		public TerminalNode SUB_OP() { return getToken(ExprParser.SUB_OP, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode REL_OP() { return getToken(ExprParser.REL_OP, 0); }
-		public TerminalNode EQ_OP() { return getToken(ExprParser.EQ_OP, 0); }
+		public TerminalNode MUL_OP() { return getToken(ExprParser.MUL_OP, 0); }
+		public TerminalNode DIV_OP() { return getToken(ExprParser.DIV_OP, 0); }
+		public TerminalNode REM_OP() { return getToken(ExprParser.REM_OP, 0); }
+		public TerminalNode ADD_OP() { return getToken(ExprParser.ADD_OP, 0); }
+		public TerminalNode RELATIONAL_OP() { return getToken(ExprParser.RELATIONAL_OP, 0); }
+		public TerminalNode EQUALITY_OP() { return getToken(ExprParser.EQUALITY_OP, 0); }
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -206,10 +213,10 @@ public class ExprParser extends Parser {
 			setState(24);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case ID:
+			case IDENTIFIER:
 				{
 				setState(16);
-				match(ID);
+				match(IDENTIFIER);
 				}
 				break;
 			case FLOAT:
@@ -219,22 +226,22 @@ public class ExprParser extends Parser {
 				literal();
 				}
 				break;
-			case T__1:
+			case SUB_OP:
 				{
 				setState(18);
-				match(T__1);
+				match(SUB_OP);
 				setState(19);
 				expr(5);
 				}
 				break;
-			case T__2:
+			case T__1:
 				{
 				setState(20);
-				match(T__2);
+				match(T__1);
 				setState(21);
 				expr(0);
 				setState(22);
-				match(T__3);
+				match(T__2);
 				}
 				break;
 			default:
@@ -260,7 +267,7 @@ public class ExprParser extends Parser {
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(27);
 						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6))) != 0)) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MUL_OP) | (1L << DIV_OP) | (1L << REM_OP))) != 0)) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -280,7 +287,7 @@ public class ExprParser extends Parser {
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(30);
 						_la = _input.LA(1);
-						if ( !(_la==T__1 || _la==T__7) ) {
+						if ( !(_la==ADD_OP || _la==SUB_OP) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -300,7 +307,7 @@ public class ExprParser extends Parser {
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 						setState(33);
 						_la = _input.LA(1);
-						if ( !(_la==EQ_OP || _la==REL_OP) ) {
+						if ( !(_la==EQUALITY_OP || _la==RELATIONAL_OP) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -404,19 +411,19 @@ public class ExprParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\22-\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21-\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\3\2\3\2\3\2\6\2\f\n\2\r\2\16\2\r\3\2\3\2\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\5\3\33\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3"+
-		"&\n\3\f\3\16\3)\13\3\3\4\3\4\3\4\2\3\4\5\2\4\6\2\6\3\2\7\t\4\2\4\4\n\n"+
-		"\3\2\r\16\4\2\13\13\17\17\2\60\2\13\3\2\2\2\4\32\3\2\2\2\6*\3\2\2\2\b"+
-		"\t\5\4\3\2\t\n\7\3\2\2\n\f\3\2\2\2\13\b\3\2\2\2\f\r\3\2\2\2\r\13\3\2\2"+
-		"\2\r\16\3\2\2\2\16\17\3\2\2\2\17\20\7\2\2\3\20\3\3\2\2\2\21\22\b\3\1\2"+
-		"\22\33\7\20\2\2\23\33\5\6\4\2\24\25\7\4\2\2\25\33\5\4\3\7\26\27\7\5\2"+
-		"\2\27\30\5\4\3\2\30\31\7\6\2\2\31\33\3\2\2\2\32\21\3\2\2\2\32\23\3\2\2"+
-		"\2\32\24\3\2\2\2\32\26\3\2\2\2\33\'\3\2\2\2\34\35\f\5\2\2\35\36\t\2\2"+
-		"\2\36&\5\4\3\6\37 \f\4\2\2 !\t\3\2\2!&\5\4\3\5\"#\f\3\2\2#$\t\4\2\2$&"+
-		"\5\4\3\4%\34\3\2\2\2%\37\3\2\2\2%\"\3\2\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3"+
-		"\2\2\2(\5\3\2\2\2)\'\3\2\2\2*+\t\5\2\2+\7\3\2\2\2\6\r\32%\'";
+		"&\n\3\f\3\16\3)\13\3\3\4\3\4\3\4\2\3\4\5\2\4\6\2\6\3\2\7\t\3\2\n\13\3"+
+		"\2\f\r\4\2\6\6\16\16\2\60\2\13\3\2\2\2\4\32\3\2\2\2\6*\3\2\2\2\b\t\5\4"+
+		"\3\2\t\n\7\3\2\2\n\f\3\2\2\2\13\b\3\2\2\2\f\r\3\2\2\2\r\13\3\2\2\2\r\16"+
+		"\3\2\2\2\16\17\3\2\2\2\17\20\7\2\2\3\20\3\3\2\2\2\21\22\b\3\1\2\22\33"+
+		"\7\17\2\2\23\33\5\6\4\2\24\25\7\13\2\2\25\33\5\4\3\7\26\27\7\4\2\2\27"+
+		"\30\5\4\3\2\30\31\7\5\2\2\31\33\3\2\2\2\32\21\3\2\2\2\32\23\3\2\2\2\32"+
+		"\24\3\2\2\2\32\26\3\2\2\2\33\'\3\2\2\2\34\35\f\5\2\2\35\36\t\2\2\2\36"+
+		"&\5\4\3\6\37 \f\4\2\2 !\t\3\2\2!&\5\4\3\5\"#\f\3\2\2#$\t\4\2\2$&\5\4\3"+
+		"\4%\34\3\2\2\2%\37\3\2\2\2%\"\3\2\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2"+
+		"(\5\3\2\2\2)\'\3\2\2\2*+\t\5\2\2+\7\3\2\2\2\6\r\32%\'";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
