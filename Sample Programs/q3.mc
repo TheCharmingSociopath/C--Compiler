@@ -4,7 +4,7 @@ void main()
 {
     int N, i, sum = 0;
     bool isPrime[100000];
-    for (int i = 0; i < 100000; ++i) {
+    for (i = 0; i < 100000; i += 1) {
         isPrime[i] = true;
     }
     callout("print", "Enter N: ");
@@ -12,7 +12,7 @@ void main()
     for(i=2; i<N; i+=1)
     {
         if (isPrime[i] == true) {
-            for (int j = i+i; j <= N; j += i) {
+            for (j = i+i; j <= N; j += i) {
                 isPrime[j] = false;
             }
             sum += i;

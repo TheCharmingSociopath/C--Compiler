@@ -6,7 +6,7 @@ void main()
     int i, z = 100000000, total = 0, a, b, c = 0, m = 2;
     while(c < z)
     {
-        for(i=1; i<m; i++)
+        for(i=1; i<m; i += 1)
         {
             a = m*m-i*i;
             b = 2*m*i;

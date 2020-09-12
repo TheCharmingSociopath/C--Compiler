@@ -9,7 +9,7 @@ void combUntil(int arr[], int n, int r, int index, int data[], int i)
 {  
     if(index==r)
     {  
-        for (int j = 0; j < r; j += 1)  
+        for (j = 0; j < r; j += 1)  
         {
             callout("print", "int", data[j], " ");  
         }
