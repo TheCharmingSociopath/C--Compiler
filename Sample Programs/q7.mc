@@ -13,7 +13,7 @@ void countSort(int arr[], int n, int j){
     }
     for(i=n-1; i>=0; i-=1){
         out[count[(arr[i]/j)%10]-1] = arr[i];
-        count[(arr[i]/j)%10]--;
+        count[(arr[i]/j)%10] -= 1;
     }
     for(i=0; i<n; i+=1){
         arr[i]=out[i];
@@ -21,7 +21,7 @@ void countSort(int arr[], int n, int j){
 }
 void radixSort(int n, int arr[]){
     int mx = arr[0], i;
-    for(int i=0; i<n; i+=1){
+    for(i=0; i<n; i+=1){
         if(arr[i] > mx){
             mx = arr[i];
         }
@@ -40,7 +40,7 @@ void main(){
         arr[i] = callout("read","int");
     }
     callout("radixSort","int",n,"int",arr);
-    for(int i=0; i<n; i+=1){
+    for(i=0; i<n; i+=1){
         callout("print","int",arr[i]," ");
     }
     callout("print","\n");

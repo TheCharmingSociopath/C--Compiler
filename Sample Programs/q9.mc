@@ -25,7 +25,7 @@ void main()
             mat2[i][j] += mat1[i][j];
         }
     }
-    for(int i=0;i<n;i+=1)
+    for(i=0;i<n;i+=1)
     {
         for(j=0;j<m;j+=1)
         {

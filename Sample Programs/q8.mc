@@ -31,19 +31,19 @@ void merge(int arr[],int l,int mid,int r)
     while(i<n1)
     {
         arr[k] = left[i];
-        i++;
-        k++;
+        i+=1;
+        k+=1;
     }
     while(j<n2)
     {
         arr[k]=right[j];
-        j++;
-        k++;
+        j+=1;
+        k+=1;
     }
 }
 void mergeSort(int arr[],int l,int r)
 {
-    if(l , r)
+    if(l < r)
     {
         int mid = (l+r)/2;
         callout("mergeSort","int",arr,l,"int",mid);
@@ -52,6 +52,7 @@ void mergeSort(int arr[],int l,int r)
     }
     return;
 }    
+
 void main()
 {
     int i, n, arr[n];

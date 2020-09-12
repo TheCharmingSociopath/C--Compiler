@@ -11,7 +11,7 @@ void main()
         arr[i] = callout("read", "int");
     }
     int k;
-    for(int i=1; i<n; i += 1)
+    for(i=1; i<n; i += 1)
     {
         k = arr[i];
         j = i-1;
@@ -22,7 +22,7 @@ void main()
         }
         arr[j+1]=key;
     }
-    for(int i=0; i<n; i += 1)
+    for(i=0; i<n; i += 1)
     {
         callout("print", "int", arr[i], " ");
     }

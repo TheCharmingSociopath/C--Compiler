@@ -12,7 +12,9 @@ dec: ID
     | ID ASSIGN_OP expr
     ;
 
-method_decl: (type | 'void' | type '[]' | type '[][]') ID '(' (type location | (ID '[]' | ID '[][]') )* ')' block
+method_decl: (type | 'void' | type '[]' | type '[][]') ID '(' ( method_arg (',' method_arg)*)? ')' block
+    ;
+method_arg: (type (location | ID '[]' | ID '[][]') )
     ;
 
 block: '{' (var_decl|statement)* '}'
