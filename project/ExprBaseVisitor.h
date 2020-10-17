@@ -115,6 +115,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitExprMethodCall(ExprParser::ExprMethodCallContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitExprConditionalOp(ExprParser::ExprConditionalOpContext *ctx) override {
     return visitChildren(ctx);
   }

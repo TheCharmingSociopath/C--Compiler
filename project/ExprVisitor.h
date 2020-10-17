@@ -69,6 +69,8 @@ public:
 
     virtual antlrcpp::Any visitExprAddSubOp(ExprParser::ExprAddSubOpContext *context) = 0;
 
+    virtual antlrcpp::Any visitExprMethodCall(ExprParser::ExprMethodCallContext *context) = 0;
+
     virtual antlrcpp::Any visitExprConditionalOp(ExprParser::ExprConditionalOpContext *context) = 0;
 
     virtual antlrcpp::Any visitExprUnaryOp(ExprParser::ExprUnaryOpContext *context) = 0;

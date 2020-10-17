@@ -401,6 +401,15 @@ public:
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
+  class  ExprMethodCallContext : public ExprContext {
+  public:
+    ExprMethodCallContext(ExprContext *ctx);
+
+    MethodCallContext *methodCall();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
   class  ExprConditionalOpContext : public ExprContext {
   public:
     ExprConditionalOpContext(ExprContext *ctx);

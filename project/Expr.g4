@@ -50,6 +50,7 @@ expr:   literal #exprLiteral
     |   expr op=CONDITIONAL_OP expr        #exprConditionalOp
     |   expr op=ASSIGN expr      #exprAssignOp
     |   op=UNARY_OP expr               #exprUnaryOp
+    |   methodCall                  #exprMethodCall
     ;
 
 location: IDENTIFIER    #locationIdentifier

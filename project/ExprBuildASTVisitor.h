@@ -89,6 +89,11 @@ public:
         return (ASTMethodDecl *) node;
     }
 
+    virtual antlrcpp::Any visitExprMethodCall(ExprParser::ExprMethodCallContext *context) {
+        ASTMethodCall *node = visit(context->methodCall());
+        return (ASTExpr *) node;
+    }
+
     virtual antlrcpp::Any visitBlock(ExprParser::BlockContext *context)
     {
         cout << "In visitBlock" << endl;
