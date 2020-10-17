@@ -14,17 +14,19 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, IF = 18, ELSE = 19, WHILE = 20, 
-    FOR = 21, RETURN = 22, BREAK = 23, CONTINUE = 24, MUL_OP = 25, DIV_OP = 26, 
-    MOD_OP = 27, ADD_OP = 28, SUB_OP = 29, ASSIGN = 30, UNARY_OP = 31, EQUALITY_OP = 32, 
-    RELATIONAL_OP = 33, ASSIGN_OP = 34, BOOL_OP = 35, CONDITIONAL_OP = 36, 
-    INT = 37, IDENTIFIER = 38, FLOAT = 39, STRING = 40, CHAR = 41, BOOL = 42, 
-    DOUBLE_QUOTE = 43, COMMENT = 44, WS = 45
+    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, T__19 = 20, 
+    IF = 21, ELSE = 22, WHILE = 23, FOR = 24, RETURN = 25, BREAK = 26, CONTINUE = 27, 
+    MUL_OP = 28, DIV_OP = 29, MOD_OP = 30, ADD_OP = 31, SUB_OP = 32, ASSIGN = 33, 
+    UNARY_OP = 34, EQUALITY_OP = 35, RELATIONAL_OP = 36, ASSIGN_OP = 37, 
+    BOOL_OP = 38, CONDITIONAL_OP = 39, INT = 40, IDENTIFIER = 41, FLOAT = 42, 
+    STRING = 43, CHAR = 44, BOOL = 45, DOUBLE_QUOTE = 46, COMMENT = 47, 
+    WS = 48
   };
 
   enum {
-    RuleProg = 0, RuleBlock = 1, RuleStatement = 2, RuleVariable = 3, RuleDeclare = 4, 
-    RuleControl = 5, RuleExpr = 6, RuleLocation = 7, RuleType = 8, RuleLiteral = 9
+    RuleProg = 0, RuleMethodDecl = 1, RuleMethodArg = 2, RuleMethodCall = 3, 
+    RuleBlock = 4, RuleStatement = 5, RuleVariable = 6, RuleDeclare = 7, 
+    RuleControl = 8, RuleExpr = 9, RuleLocation = 10, RuleType = 11, RuleLiteral = 12
   };
 
   ExprParser(antlr4::TokenStream *input);
@@ -38,6 +40,9 @@ public:
 
 
   class ProgContext;
+  class MethodDeclContext;
+  class MethodArgContext;
+  class MethodCallContext;
   class BlockContext;
   class StatementContext;
   class VariableContext;
@@ -52,8 +57,9 @@ public:
   public:
     ProgContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<BlockContext *> block();
-    BlockContext* block(size_t i);
+    antlr4::tree::TerminalNode *EOF();
+    std::vector<MethodDeclContext *> methodDecl();
+    MethodDeclContext* methodDecl(size_t i);
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -61,6 +67,52 @@ public:
   };
 
   ProgContext* prog();
+
+  class  MethodDeclContext : public antlr4::ParserRuleContext {
+  public:
+    MethodDeclContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *IDENTIFIER();
+    BlockContext *block();
+    TypeContext *type();
+    std::vector<MethodArgContext *> methodArg();
+    MethodArgContext* methodArg(size_t i);
+
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  MethodDeclContext* methodDecl();
+
+  class  MethodArgContext : public antlr4::ParserRuleContext {
+  public:
+    MethodArgContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    TypeContext *type();
+    antlr4::tree::TerminalNode *IDENTIFIER();
+
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  MethodArgContext* methodArg();
+
+  class  MethodCallContext : public antlr4::ParserRuleContext {
+  public:
+    MethodCallContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *STRING();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  MethodCallContext* methodCall();
 
   class  BlockContext : public antlr4::ParserRuleContext {
   public:
@@ -94,6 +146,15 @@ public:
     StatBlockContext(StatementContext *ctx);
 
     BlockContext *block();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  StatMethodCallContext : public StatementContext {
+  public:
+    StatMethodCallContext(StatementContext *ctx);
+
+    MethodCallContext *methodCall();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };

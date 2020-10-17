@@ -24,6 +24,26 @@ public:
         }
     }
 
+    virtual void visit(ASTMethodCall &node) {
+        cout << "In AstMethodCall " << endl;
+        for (auto expr : node.getExprList()) {
+            expr->accept(*this);
+        }
+    }
+
+    virtual void visit(ASTMethodArg &node) {
+        cout << "ASTMethodArg visit" << endl;
+    }
+
+    virtual void visit(ASTMethodDecl &node) {
+        cout << "In ASTMethodDecl method" << endl;
+        cout << "Method Type: " << node.getType() << ", method identifier: " << node.getIdentifier() << endl;
+        for (auto arg : node.getArgsList()) {
+            arg->accept(*this);
+        }
+        node.getBlock()->accept(*this);
+    }
+
     virtual void visit(ASTBlock &node)
     {
         cout << "In visitASTBlock function. Block statements: " << endl;

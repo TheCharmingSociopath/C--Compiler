@@ -19,6 +19,18 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitMethodDecl(ExprParser::MethodDeclContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitMethodArg(ExprParser::MethodArgContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitMethodCall(ExprParser::MethodCallContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitBlock(ExprParser::BlockContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -52,6 +64,10 @@ public:
   }
 
   virtual antlrcpp::Any visitStatBlock(ExprParser::StatBlockContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitStatMethodCall(ExprParser::StatMethodCallContext *ctx) override {
     return visitChildren(ctx);
   }
 

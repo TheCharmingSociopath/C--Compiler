@@ -5,6 +5,10 @@ using namespace std;
 
 class ASTProg;
 
+class ASTMethodDecl;
+class ASTMethodArg;
+class ASTMethodCall;
+
 class ASTStatExpr;
 class ASTStatAssignExpr;
 
@@ -41,6 +45,11 @@ class ASTvisitor
 {
 public:
     virtual void visit(ASTProg &node) = 0;
+
+    virtual void visit(ASTMethodArg &node) = 0;
+    virtual void visit(ASTMethodDecl &node) = 0;
+    virtual void visit(ASTMethodCall &node) = 0;
+
     virtual void visit(ASTStatExpr &node) = 0;
     virtual void visit(ASTStatAssignExpr &node) = 0;
 
@@ -101,9 +110,75 @@ public:
 class ASTProg : public ASTnode
 {
 public:
-    std::vector<ASTBlock *> statementList;
+    std::vector<ASTMethodDecl *> statementList;
     virtual void accept(ASTvisitor &v)
     {
+        v.visit(*this);
+    }
+};
+
+class ASTMethodDecl : public ASTnode
+{
+    ASTBlock *block;
+    string Type, identifier;
+    std::vector<ASTMethodArg *> argsList;
+public:
+    ASTMethodDecl(string _Type, string _identifier, std::vector<ASTMethodArg *> _argsList, ASTBlock *_block) : Type(_Type), identifier(_identifier), argsList(_argsList), block(_block) {}
+
+    string getType() {
+        return Type;
+    }
+    string getIdentifier() {
+        return identifier;
+    }
+    ASTBlock *getBlock() {
+        return block;
+    }
+    std::vector<ASTMethodArg *> getArgsList() {
+        return argsList;
+    }
+    virtual void accept(ASTvisitor &v)
+    {
+        v.visit(*this);
+    }
+};
+
+class ASTMethodArg : public ASTnode
+{
+    string Type, identifier;
+public:
+    ASTMethodArg(string _Type, string _identifier) : Type(_Type), identifier(_identifier) {}
+
+    string getType() {
+        return Type;
+    }
+
+    string getIdentifier() {
+        return identifier;
+    }
+    virtual void accept(ASTvisitor &v)
+    {
+        v.visit(*this);
+    }
+};
+
+class ASTMethodCall : public ASTnode
+{
+    string functionName;
+    std::vector<ASTExpr *> exprList;
+
+public:
+    ASTMethodCall(string _functionName, std::vector<ASTExpr *> _exprList) : functionName(_functionName), exprList(_exprList) {}
+
+    string getFunctionName() {
+        return functionName;
+    }
+
+    std::vector<ASTExpr *> getExprList() {
+        return exprList;
+    }
+
+    virtual void accept(ASTvisitor &v) {
         v.visit(*this);
     }
 };

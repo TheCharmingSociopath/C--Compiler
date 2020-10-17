@@ -2,7 +2,16 @@ grammar Expr;
 
 /** The start rule; begin parsing here. */
 
-prog: (block)+;
+prog: (methodDecl)+ EOF;
+
+methodDecl: (type | 'void') IDENTIFIER '(' ( methodArg (',' methodArg)*)? ')' block
+    ;
+
+methodArg: (type IDENTIFIER)
+    ;
+
+methodCall: 'callout(' STRING (',' (expr))* ');'
+    ;
 
 block: '{' statement+ '}'           
     ;
@@ -15,6 +24,7 @@ statement : IF '(' expr ')' block  (ELSE block)?     #statIfElse
           | control';'                  #statementControl
           | variable                    #statVariable
           | block                       #statBlock
+          | methodCall                     #statMethodCall
           ;
 
 variable: type declare(','declare)*';'
