@@ -23,8 +23,8 @@ block: '{' (var_decl|statement)* '}'
 method_call: 'callout' '(' STRING (',' (STRING|expr))* ')'
     ;
 
-statement: IF '(' expr ')' block  (ELSE block)?
-        | location ASSIGN_OP expr ';'
+statement: IF '(' expr ')' block  (ELSE block)?     #IF
+        | location ASSIGN_OP expr ';'       #ASSIGNMENT
         | method_call ';'
         | expr '?' statement ':' statement ';'
         | WHILE '(' expr ')' block
