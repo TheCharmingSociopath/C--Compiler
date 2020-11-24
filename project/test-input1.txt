@@ -2,6 +2,10 @@
 
 void main()
 {
-    int a = "a";
+    int a, b;
     return;
+}
+
+int fact(int a) {
+    return 0;
 }
