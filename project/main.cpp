@@ -34,6 +34,5 @@ int main(int argc, const char* argv[])
 
     PostFixVisitor* pv = new PostFixVisitor(symbolTable);
     pv->visit(*program_root);
-
     return 0;
 }

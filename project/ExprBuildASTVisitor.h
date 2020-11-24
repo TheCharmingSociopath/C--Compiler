@@ -16,7 +16,6 @@ public:
         // cout << "In visitProg" << endl;
         ASTProg* node = new ASTProg();
         ASTMethodDecl* methodNode;
-
         for (auto method : context->methodDecl()) {
             methodNode = visit(method);
             if (methodNode != nullptr) {
@@ -58,8 +57,23 @@ public:
     virtual antlrcpp::Any visitMethodArg(ExprParser::MethodArgContext* context)
     {
         cout << "In visitMethodArg method" << endl;
-        ASTMethodArg* node = new ASTMethodArg(context->type()->getText(), context->IDENTIFIER()->getText());
-        return (ASTMethodDecl*)node;
+        ASTMethodArg* node = new ASTMethodArg(visit(context->type()), context->IDENTIFIER()->getText(), nullptr, nullptr);
+        return (ASTMethodArg*)node;
+    }
+
+    virtual antlrcpp::Any visitMethodArg1D(ExprParser::MethodArg1DContext* context)
+    {
+        cout << "In visitMethodArg1D method" << endl;
+        
+        ASTMethodArg* node = new ASTMethodArg(visit(context->type()), context->IDENTIFIER()->getText(), visit(context->expr()), nullptr);
+        return (ASTMethodArg*)node;
+    }
+
+    virtual antlrcpp::Any visitMethodArg2D(ExprParser::MethodArg2DContext* context)
+    {
+        cout << "In visitMethodArg2D method" << endl;
+        ASTMethodArg* node = new ASTMethodArg(visit(context->type()), context->IDENTIFIER()->getText(), visit(context->expr(0)), visit(context->expr(1)));
+        return (ASTMethodArg*)node;
     }
 
     virtual antlrcpp::Any visitMethodDecl(ExprParser::MethodDeclContext* context)
@@ -67,19 +81,19 @@ public:
         cout << "In visitMethodDecl" << endl;
         std::vector<ASTMethodArg*> argsList;
         ASTMethodArg* temp;
-        for (auto arg : context->methodArg()) {
+        for (auto arg : context->methodArg1()) {
             temp = visit(arg);
             if (temp)
                 argsList.push_back(temp);
         }
 
         ASTBlock* block = visit(context->block());
-        string Type = "void";
+        ASTType *Type = new ASTType("void");
         if (context->type() != nullptr) {
-            Type = context->type()->getText();
+            Type = visit(context->type());
         }
         ASTMethodDecl* node = new ASTMethodDecl(Type, context->IDENTIFIER()->getText(), argsList, block);
-        cout << "ping" << endl;
+        // cout << "ping" << endl;
         return (ASTMethodDecl*)node;
     }
 
@@ -383,7 +397,7 @@ public:
         string Type = context->getText();
 
         ASTType* node = new ASTType(Type);
-        return (ASTType*)node;
+        return (ASTType*) node;
     }
 
     virtual antlrcpp::Any visitVariable(ExprParser::VariableContext* context)

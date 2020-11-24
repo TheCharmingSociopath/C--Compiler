@@ -24,7 +24,7 @@ public:
   };
 
   enum {
-    RuleProg = 0, RuleMethodDecl = 1, RuleMethodArg = 2, RuleMethodCall = 3, 
+    RuleProg = 0, RuleMethodDecl = 1, RuleMethodArg1 = 2, RuleMethodCall = 3, 
     RuleBlock = 4, RuleStatement = 5, RuleVariable = 6, RuleDeclare = 7, 
     RuleControl = 8, RuleExpr = 9, RuleLocation = 10, RuleType = 11, RuleLiteral = 12
   };
@@ -41,7 +41,7 @@ public:
 
   class ProgContext;
   class MethodDeclContext;
-  class MethodArgContext;
+  class MethodArg1Context;
   class MethodCallContext;
   class BlockContext;
   class StatementContext;
@@ -75,8 +75,8 @@ public:
     antlr4::tree::TerminalNode *IDENTIFIER();
     BlockContext *block();
     TypeContext *type();
-    std::vector<MethodArgContext *> methodArg();
-    MethodArgContext* methodArg(size_t i);
+    std::vector<MethodArg1Context *> methodArg1();
+    MethodArg1Context* methodArg1(size_t i);
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -85,19 +85,53 @@ public:
 
   MethodDeclContext* methodDecl();
 
-  class  MethodArgContext : public antlr4::ParserRuleContext {
+  class  MethodArg1Context : public antlr4::ParserRuleContext {
   public:
-    MethodArgContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    MethodArg1Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    MethodArg1Context() = default;
+    void copyFrom(MethodArg1Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
     virtual size_t getRuleIndex() const override;
-    TypeContext *type();
-    antlr4::tree::TerminalNode *IDENTIFIER();
 
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
-  MethodArgContext* methodArg();
+  class  MethodArg2DContext : public MethodArg1Context {
+  public:
+    MethodArg2DContext(MethodArg1Context *ctx);
+
+    TypeContext *type();
+    antlr4::tree::TerminalNode *IDENTIFIER();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  MethodArgContext : public MethodArg1Context {
+  public:
+    MethodArgContext(MethodArg1Context *ctx);
+
+    TypeContext *type();
+    antlr4::tree::TerminalNode *IDENTIFIER();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  MethodArg1DContext : public MethodArg1Context {
+  public:
+    MethodArg1DContext(MethodArg1Context *ctx);
+
+    TypeContext *type();
+    antlr4::tree::TerminalNode *IDENTIFIER();
+    ExprContext *expr();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  MethodArg1Context* methodArg1();
 
   class  MethodCallContext : public antlr4::ParserRuleContext {
   public:

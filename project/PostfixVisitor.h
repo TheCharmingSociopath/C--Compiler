@@ -18,10 +18,10 @@ public:
 
     virtual void visit(ASTProg& node)
     {
-        // cout << "PostFixVisit traversal invoked" << endl;
         int i = 1;
         symbolTable->scopes.push(1);
         ++symbolTable->lineNumber;
+
         for (auto method : node.methodList) {
             ++symbolTable->lineNumber;
             cout << "Method " << i << " : " << endl;
@@ -301,7 +301,7 @@ public:
 
     virtual void visit(ASTType& node)
     {
-        cout << " " << node.getType();
+        // cout << " " << node.getType();
     }
 
     virtual void visit(ASTControl& node)

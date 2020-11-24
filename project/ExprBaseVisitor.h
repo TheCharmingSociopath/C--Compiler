@@ -27,6 +27,14 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitMethodArg1D(ExprParser::MethodArg1DContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitMethodArg2D(ExprParser::MethodArg2DContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitMethodCall(ExprParser::MethodCallContext *ctx) override {
     return visitChildren(ctx);
   }

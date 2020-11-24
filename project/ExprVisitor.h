@@ -25,6 +25,10 @@ public:
 
     virtual antlrcpp::Any visitMethodArg(ExprParser::MethodArgContext *context) = 0;
 
+    virtual antlrcpp::Any visitMethodArg1D(ExprParser::MethodArg1DContext *context) = 0;
+
+    virtual antlrcpp::Any visitMethodArg2D(ExprParser::MethodArg2DContext *context) = 0;
+
     virtual antlrcpp::Any visitMethodCall(ExprParser::MethodCallContext *context) = 0;
 
     virtual antlrcpp::Any visitBlock(ExprParser::BlockContext *context) = 0;

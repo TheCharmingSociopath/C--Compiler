@@ -4,10 +4,12 @@ grammar Expr;
 
 prog: (methodDecl)+ EOF;
 
-methodDecl: (type | 'void') IDENTIFIER '(' ( methodArg (',' methodArg)*)? ')' block
+methodDecl: (type | 'void') IDENTIFIER '(' ( methodArg1 (',' methodArg1)*)? ')' block
     ;
 
-methodArg: (type IDENTIFIER)
+methodArg1: type IDENTIFIER #methodArg
+    |       type IDENTIFIER '[' expr ']' #methodArg1D
+    |       type IDENTIFIER '[' expr ']' '[' expr ']' #methodArg2D
     ;
 
 methodCall: 'callout(' STRING (',' (expr))* ');'
