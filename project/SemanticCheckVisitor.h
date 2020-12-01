@@ -326,20 +326,19 @@ public:
         DataType rightType = Type;
 
         string binop = node.getBinOp();
-        // cout << (rightType == INT ? "INT" : "BT") << endl;
         if (leftType != rightType) {
             cout << "Operand type mismatch near line " << symbolTable->lineNumber << endl;
             exit(0);
         }
         if (binop == ">" or binop == ">=" or binop == "<" or binop == "<=" or binop == "==" or binop == "!=") {
             Type = BOOL;
+            return;
         }
-        if ((binop == "&&" or binop == "||") and leftType != BOOL) {
+        if ((binop == "&&" or binop == "||") and rightType != BOOL) {
             cout << "Non boolean operands for boolean operation near line " << symbolTable->lineNumber << endl;
             exit(0);
         }
         Type = leftType;
-        // cout << " " + node.getBinOp();
     }
 
     virtual void visit(ASTExprTernary& node)
