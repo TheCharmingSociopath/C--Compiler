@@ -5,10 +5,10 @@ void main()
 {
     int i, j, n, arr[n];
     callout("print", "Enter n: ");
-    n = callout("read", "int");
+    callout("read", "int", n);
     for(i=0; i<n; i = i+1)
     {
-        arr[i] = callout("read", "int");
+        callout("read", "int", arr[i]);
     }
     int k;
     for(i=1; i<n; i = i+1)

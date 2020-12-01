@@ -22,7 +22,7 @@ statement : IF '(' expr ')' block  (ELSE block)?     #statIfElse
           | WHILE '(' expr ')' block    #statWhile
           | expr '?' statement ':' statement ';'    #statTernary
           | FOR '(' expr ';' expr ';' expr ')' block    #statFor
-          | location ASSIGN expr';'   #statAssignExpr
+          | location ASSIGN_OP expr';'   #statAssignExpr
           | control ';'                  #statementControl
           | variable                    #statVariable
           | block                       #statBlock
@@ -33,9 +33,9 @@ variable: type declare(','declare)* ';'
     ;
 
 declare: IDENTIFIER                     #declareId
+    |    IDENTIFIER ASSIGN_OP expr            #declareIdentifierAssign 
     |    IDENTIFIER '[' expr ']'              #declareId1D
     |    IDENTIFIER '[' expr '][' expr ']'   #declareId2D
-    |    IDENTIFIER '=' expr            #declareIdentifierAssign 
     ;
 
 control: RETURN (expr)?           #controlReturn
@@ -53,7 +53,7 @@ expr:   location                 #exprLocation
     |   expr op=EQUALITY_OP expr          #exprEqualityOp
     |   expr op=BOOL_OP expr        #exprBoolOp
     |   expr op=CONDITIONAL_OP expr        #exprConditionalOp
-    |   expr op=ASSIGN expr      #exprAssignOp
+    |   expr op=ASSIGN_OP expr      #exprAssignOp
     |   op=UNARY_OP expr               #exprUnaryOp
     ;
 
@@ -90,8 +90,6 @@ DIV_OP: '/';
 MOD_OP: '%';
 ADD_OP: '+';
 SUB_OP: '-';
-
-ASSIGN: '=';
 
 UNARY_OP: '-' | '!' ;
 

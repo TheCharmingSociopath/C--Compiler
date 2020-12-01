@@ -108,6 +108,7 @@ public:
             statement->accept(*this);
         }
         symbolTable->scopes.pop();
+        symbolTable->scopes.push(++symbolTable->scope);
     }
 
     virtual void visit(ASTIfElse& node)
@@ -246,7 +247,7 @@ public:
             node.getVal()->accept(*this);
         }
         if (Type != symbol->Type) {
-            cout << "Type mismatch in the declaration near line " << symbolTable->lineNumber;
+            cout << "Type mismatch in the declaration near line " << symbolTable->lineNumber << endl;
         }
         symbolTable->insertVariable(symbol);
     }
@@ -301,6 +302,7 @@ public:
     virtual void visit(ASTType& node)
     {
         // cout << " " << node.getType();
+        Type = node.getType();
     }
 
     virtual void visit(ASTControl& node)
@@ -327,12 +329,14 @@ public:
         // cout << (rightType == INT ? "INT" : "BT") << endl;
         if (leftType != rightType) {
             cout << "Operand type mismatch near line " << symbolTable->lineNumber << endl;
+            exit(0);
         }
         if (binop == ">" or binop == ">=" or binop == "<" or binop == "<=" or binop == "==" or binop == "!=") {
             Type = BOOL;
         }
         if ((binop == "&&" or binop == "||") and leftType != BOOL) {
             cout << "Non boolean operands for boolean operation near line " << symbolTable->lineNumber << endl;
+            exit(0);
         }
         Type = leftType;
         // cout << " " + node.getBinOp();

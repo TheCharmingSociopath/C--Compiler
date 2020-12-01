@@ -4,19 +4,19 @@ void main()
 {
     int i, j, k, n;
     callout("print", "Enter n: ");
-    n = callout("read", "int");
+    callout("read", "int", n);
     int m;
     callout("print", "Enter m: ");
-    m = callout("read", "int");
+    callout("read", "int", m);
     int p;
     callout("print", "Enter p: ");
-    p = callout("read", "int");
+    callout("read", "int", p);
     int mat1[n][m];
     for(i=0;i<n;i=i+1)
     {
         for(j=0;j<m;j=j+1)
         {
-            mat1[i][j] = callout("read","int");
+            callout("read","int", mat1[i][j]);
         }
     }
     int mat2[m][p];
@@ -24,7 +24,7 @@ void main()
     {
         for(j=0;j<p;j=j+1)
         {
-            mat2[i][j] = callout("read","int");
+            callout("read","int", mat2[i][j]);
         }
     }
     int out[n][p];

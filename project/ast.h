@@ -377,9 +377,26 @@ public:
         : type(type)
     {
     }
-    string getType()
+    DataType getType()
     {
-        return type;
+        DataType Type;
+        if (type == "void") {
+            Type = VOID;
+        } else if (type == "int") {
+            Type = INT;
+        } else if (type == "float") {
+            Type = FLOAT;
+        } else if (type == "string") {
+            Type = STRING;
+        } else if (type == "unit") {
+            Type = UINT;
+        } else if (type == "char") {
+            Type = CHAR;
+        }
+        else if (type == "bool") {
+            Type = BOOL;
+        }
+        return Type;
     }
     virtual void accept(ASTvisitor& v)
     {

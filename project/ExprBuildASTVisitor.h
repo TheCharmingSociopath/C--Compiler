@@ -187,7 +187,7 @@ public:
     {
         // cout << "In visitStatAssignExpr" << endl;
         ASTExpr* left = visit(context->location());
-        string op = context->ASSIGN()->getText();
+        string op = context->ASSIGN_OP()->getText();
         ASTExpr* right = visit(context->expr());
         ASTExprBinary* node = new ASTExprBinary(op, left, right);
         return (ASTStat*)node;
@@ -330,7 +330,7 @@ public:
         left = visit(context->expr(0));
         right = visit(context->expr(1));
 
-        string op = context->op->getText();
+        string op = context->ASSIGN_OP()->getText();
 
         node = new ASTExprBinary(op, left, right);
 
@@ -456,7 +456,7 @@ public:
     virtual antlrcpp::Any visitDeclareIdentifierAssign(ExprParser::DeclareIdentifierAssignContext* context)
     {
         // cout << "In visitDeclareIdentifierAssign" << endl;
-        ASTDeclare* node = new ASTDeclare(context->IDENTIFIER()->getText(), "=", visit(context->expr()));
+        ASTDeclare* node = new ASTDeclare(context->IDENTIFIER()->getText(), context->ASSIGN_OP()->getText(), visit(context->expr()));
         return (ASTDeclare*)node;
     }
 

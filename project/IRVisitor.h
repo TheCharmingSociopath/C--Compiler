@@ -113,21 +113,21 @@ public:
         vector<pair<string, DataType>> argsVec;
         vector<llvm::Type*> argsType;
         for (auto arg : node.getArgsList()) {
-            if (arg->getType()->getType() == "int") {
+            if (arg->getType()->getType() == INT) {
                 argsType.push_back(llvm::Type::getInt32Ty(*TheContext));
                 argsVec.push_back(make_pair(arg->getIdentifier(), INT));
-            } else if (arg->getType()->getType() == "bool") {
+            } else if (arg->getType()->getType() == BOOL) {
                 argsType.push_back(llvm::Type::getInt1Ty(*TheContext));
                 argsVec.push_back(make_pair(arg->getIdentifier(), BOOL));
             }
         }
 
         llvm::Type* returnType = nullptr;
-        if (node.getType()->getType() == "int") {
+        if (node.getType()->getType() == INT) {
             returnType = llvm::Type::getInt32Ty(*TheContext);
-        } else if (node.getType()->getType() == "bool") {
+        } else if (node.getType()->getType() == BOOL) {
             returnType = llvm::Type::getInt1Ty(*TheContext);
-        } else if (node.getType()->getType() == "void") {
+        } else if (node.getType()->getType() == VOID) {
             returnType = llvm::Type::getVoidTy(*TheContext);
         }
 
@@ -152,7 +152,7 @@ public:
         node.getBlock()->accept(*this);
         llvm::Value* retVal = theValue;
 
-        if (retVal == nullptr and node.getType()->getType() == "void") {
+        if (retVal == nullptr and node.getType()->getType() == VOID) {
             Builder->CreateRetVoid();
         } else {
             Builder->CreateRet(retVal);

@@ -55,11 +55,11 @@ public:
 
     virtual antlrcpp::Any visitDeclareId(ExprParser::DeclareIdContext *context) = 0;
 
+    virtual antlrcpp::Any visitDeclareIdentifierAssign(ExprParser::DeclareIdentifierAssignContext *context) = 0;
+
     virtual antlrcpp::Any visitDeclareId1D(ExprParser::DeclareId1DContext *context) = 0;
 
     virtual antlrcpp::Any visitDeclareId2D(ExprParser::DeclareId2DContext *context) = 0;
-
-    virtual antlrcpp::Any visitDeclareIdentifierAssign(ExprParser::DeclareIdentifierAssignContext *context) = 0;
 
     virtual antlrcpp::Any visitControlReturn(ExprParser::ControlReturnContext *context) = 0;
 

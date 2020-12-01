@@ -1,24 +1,22 @@
-// Write a program which computes g(N,k) = ∑iᴷ, 1<=i<=N where N and k are given as inputs.
-
 void main()
- {
+{
     int N;
     int K;
-    int i;
-    int j;
-    callout("print", "Enter N: ");
-    callout("read", "int", N);
-    callout("print", "Enter K: ");
-    callout("read", "int", K);
+    int i=1,j=2,k;
+    callout("print", "N = ");
+    N = callout("read", N);
+    callout("print", "K = ");
+    K = callout("read", K);
     int sum = 0;
-    for(i = 1; i <= N; i = i + 1)
+    sum += 1;
+    for(i=1;i<=N;i+=1)
     {
         int temp = 1;
-        for(j = 1; j <= K; i = i+1){
-        temp = temp * i;
+        for(j=1;j<=K;i+=1)
+        {
+            temp *= i;
         }
-        sum = sum + temp;
     }
     callout("print", sum);
-   return;
- }
+    return;
+}

@@ -39,9 +39,9 @@ int main(int argc, const char* argv[])
 
     cout << "======================= IR ==================" << endl;
 
-    // IRVisitor *irv = new IRVisitor();
-    // irv->visit(*program_root);
-    // TheModule->print(llvm::errs(), nullptr);
+    IRVisitor *irv = new IRVisitor();
+    irv->visit(*program_root);
+    TheModule->print(llvm::errs(), nullptr);
     
     return 0;
 }

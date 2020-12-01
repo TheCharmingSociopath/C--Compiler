@@ -87,15 +87,15 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitDeclareIdentifierAssign(ExprParser::DeclareIdentifierAssignContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitDeclareId1D(ExprParser::DeclareId1DContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitDeclareId2D(ExprParser::DeclareId2DContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitDeclareIdentifierAssign(ExprParser::DeclareIdentifierAssignContext *ctx) override {
     return visitChildren(ctx);
   }
 
