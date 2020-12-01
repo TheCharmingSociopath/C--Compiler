@@ -1,38 +1,39 @@
-//Write a program to print all combinations of {1,...,n} where n is given as an input.
-
-void printComb(int arr[], int n, int r)  
-{   
-    int data[r];  
-    callout("combUntil", "int", arr, "int", n, "int", r, 0, "int", data, 0);  
-}  
-void combUntil(int arr[], int n, int r, int index, int data[], int i)  
+void combUntil(int n, int arr, int r, int index, int data, int i)  
 {  
-    if(index==r)
+    int j;
+    if(index==r)  
     {  
-        for (j = 0; j < r; j += 1)  
+        for (j = 0; j < r; j = j+1)  
         {
-            callout("print", "int", data[j], " ");  
+            callout("print",data[j]);  
         }
         callout("print", "\n");
         return;  
     }  
-    if(i >= n)  
+    if(i>=n)  
     {
         return;
     }  
     data[index] = arr[i];  
-    callout("combUntil", "int", arr, "int", n, "int", r, "int", index + 1, "int", data, "int", i + 1);  
-    callout("combUntil", "int", arr, "int", n, "int", r, "int", index, "int", data, "int", i+1);  
+    callout("combUntil",n,arr[n],r,index + 1,data[r],i + 1);  
+    callout("combUntil",n,arr[n],r,index,data[r],i+1);  
+}  
+void printComb(int n,int arr, int r)  
+{   
+    int data[r];  
+    callout("combUntil", n, arr[n], r, 0,data[r], 0);  
 }  
 void main()  
 {  
-    int i, n, arr[n];
-    callout("print", "Enter n: ");
-    n = callout("read", "int");
-    for(i=0; i<n; i+=1)
+    int i;
+    int n;
+    int arr[n];
+    callout("print", "n = ");
+    n = callout("read", n);
+    for(i=0;i< n;i=i+1)
     {
         arr[i] = i;
     }
-    callout("printComb", "int", arr, "int", n, "int", r);  
+    callout("printComb",n,arr[n],0);  
     return ;  
-} 
+}  

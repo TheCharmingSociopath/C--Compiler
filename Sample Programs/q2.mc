@@ -2,9 +2,10 @@
 
 void main()
 {
-    int N, i;
+    int N;
+    int i;
     callout("print", "Enter N: ");
-    N = callout("read", "int");
+    callout("read", "int");
     if(N == 1)
     {
         callout("print", "NO");
@@ -15,7 +16,7 @@ void main()
         callout("print", "YES");
         return;
     }
-    for(i = 2; i*i <= N; i += 1)
+    for(i = 2; i*i <= N; i = i + 1)
     {
         if(N % i == 0)
         {

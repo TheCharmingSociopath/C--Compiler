@@ -6,7 +6,9 @@
 
 #include "ExprBuildASTVisitor.h"
 
-#include "PostfixVisitor.h"
+#include "SemanticCheckVisitor.h"
+#include "IRVisitor.h"
+
 
 using namespace std;
 using namespace antlr4;
@@ -32,7 +34,14 @@ int main(int argc, const char* argv[])
 
     ASTProg* program_root = visitor->visitProg(ctx);
 
-    PostFixVisitor* pv = new PostFixVisitor(symbolTable);
-    pv->visit(*program_root);
+    SemanticCheckVisitor* scv = new SemanticCheckVisitor(symbolTable);
+    scv->visit(*program_root);
+
+    cout << "======================= IR ==================" << endl;
+
+    // IRVisitor *irv = new IRVisitor();
+    // irv->visit(*program_root);
+    // TheModule->print(llvm::errs(), nullptr);
+    
     return 0;
 }

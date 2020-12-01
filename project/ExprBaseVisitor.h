@@ -83,7 +83,15 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitDeclareLocation(ExprParser::DeclareLocationContext *ctx) override {
+  virtual antlrcpp::Any visitDeclareId(ExprParser::DeclareIdContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDeclareId1D(ExprParser::DeclareId1DContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDeclareId2D(ExprParser::DeclareId2DContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -107,15 +115,15 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitExprLocation(ExprParser::ExprLocationContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitExprAssignOp(ExprParser::ExprAssignOpContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitExprBoolOp(ExprParser::ExprBoolOpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitExprIdentifier(ExprParser::ExprIdentifierContext *ctx) override {
     return visitChildren(ctx);
   }
 

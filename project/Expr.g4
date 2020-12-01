@@ -12,7 +12,7 @@ methodArg1: type IDENTIFIER #methodArg
     |       type IDENTIFIER '[' expr ']' '[' expr ']' #methodArg2D
     ;
 
-methodCall: 'callout(' STRING (',' (expr))* ');'
+methodCall: 'callout' '(' (STRING (',' expr)*)?  ')'
     ;
 
 block: '{' statement+ '}'           
@@ -23,16 +23,18 @@ statement : IF '(' expr ')' block  (ELSE block)?     #statIfElse
           | expr '?' statement ':' statement ';'    #statTernary
           | FOR '(' expr ';' expr ';' expr ')' block    #statFor
           | location ASSIGN expr';'   #statAssignExpr
-          | control';'                  #statementControl
+          | control ';'                  #statementControl
           | variable                    #statVariable
           | block                       #statBlock
-          | methodCall                     #statMethodCall
+          | methodCall ';'                     #statMethodCall
           ;
 
-variable: type declare(','declare)*';'
+variable: type declare(','declare)* ';'
     ;
 
-declare: location                     #declareLocation
+declare: IDENTIFIER                     #declareId
+    |    IDENTIFIER '[' expr ']'              #declareId1D
+    |    IDENTIFIER '[' expr '][' expr ']'   #declareId2D
     |    IDENTIFIER '=' expr            #declareIdentifierAssign 
     ;
 
@@ -41,8 +43,9 @@ control: RETURN (expr)?           #controlReturn
        |   CONTINUE               #controlContinue
        ;
 
-expr:   literal #exprLiteral
-    |   IDENTIFIER #exprIdentifier
+expr:   location                 #exprLocation
+    |   literal #exprLiteral
+    |   methodCall                  #exprMethodCall
     |   '(' expr ')'             #exprParenthesis
     |   expr op=(MUL_OP|DIV_OP|MOD_OP) expr   #exprMulDivModOp
     |   expr op=(ADD_OP|SUB_OP) expr   #exprAddSubOp
@@ -52,7 +55,6 @@ expr:   literal #exprLiteral
     |   expr op=CONDITIONAL_OP expr        #exprConditionalOp
     |   expr op=ASSIGN expr      #exprAssignOp
     |   op=UNARY_OP expr               #exprUnaryOp
-    |   methodCall                  #exprMethodCall
     ;
 
 location: IDENTIFIER    #locationIdentifier
@@ -70,7 +72,7 @@ type: 'int'
 
 literal: INT                     #literalInt
     |  FLOAT                     #literalFloat
-    |  BOOL                      #literalBool
+    |  BOOL=('true' | 'false')                      #literalBool
     |  CHAR                      #literalChar
     |  STRING                    #literalString
     ;
@@ -104,7 +106,6 @@ IDENTIFIER  : [a-zA-Z][a-zA-Z0-9_]*;
 FLOAT: (INT'.')?INT;
 STRING: DOUBLE_QUOTE .+? DOUBLE_QUOTE;
 CHAR: '\'' (.)? '\'';
-BOOL: 'true' | 'false';
 
 DOUBLE_QUOTE: '"';
 

@@ -1,23 +1,39 @@
-//Find the sum of all prime numbers strictly less than N where N is provided as an input.
+bool checkPrime(int n) 
+{
+    int i; 
+    if (n <= 1)
+    {
+        return false; 
+    } 
+    if(n == 2 || n == 3)
+    {
+        return true;
+    }
+    for (i = 2; i*i <= n; i=i+1) 
+    {
+        if (n % i == 0) 
+        {
+            return false; 
+        }    
+    }                        
+    return true; 
+} 
 
 void main()
 {
-    int N, i, sum = 0;
-    bool isPrime[100000];
-    for (i = 0; i < 100000; i += 1) {
-        isPrime[i] = true;
-    }
-    callout("print", "Enter N: ");
-    N = callout("read", "int");
-    for(i=2; i<N; i+=1)
+    int N;
+    int i;
+    callout("print", "N = ");
+    N = callout("read", N);
+    int sum = 0;
+    for(i=2;i<=N;i=i+1)
     {
-        if (isPrime[i] == true) {
-            for (j = i+i; j <= N; j += i) {
-                isPrime[j] = false;
-            }
-            sum += i;
+        bool x = callout("checkPrime",i);
+        if(x == true)
+        {
+            sum = sum + i;
         }
     }
-    callout("print", "int", sum);
+    callout("print", sum);
     return;
 }

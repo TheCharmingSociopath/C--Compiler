@@ -2,20 +2,23 @@
 
 void main()
  {
-    int N, K, i, j;
+    int N;
+    int K;
+    int i;
+    int j;
     callout("print", "Enter N: ");
-    callout("read", "int");
+    callout("read", "int", N);
     callout("print", "Enter K: ");
-    callout("read", "int");
+    callout("read", "int", K);
     int sum = 0;
     for(i = 1; i <= N; i = i + 1)
     {
         int temp = 1;
         for(j = 1; j <= K; i = i+1){
-            temp = temp * i;
+        temp = temp * i;
         }
         sum = sum + temp;
     }
-    callout("print", "int", sum);
-    return;
+    callout("print", sum);
+   return;
  }

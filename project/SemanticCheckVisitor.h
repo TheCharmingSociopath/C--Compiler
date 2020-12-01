@@ -3,15 +3,14 @@
 
 using namespace std;
 
-class PostFixVisitor : public ASTvisitor {
+class SemanticCheckVisitor : public ASTvisitor {
 
     DataType Type, currFuncType;
-    int scope = 0;
     vector<pair<string, VarSymbol*>> methodArgsList;
 
 public:
     SymbolTable *symbolTable;
-    PostFixVisitor(SymbolTable* symbolTable)
+    SemanticCheckVisitor(SymbolTable* symbolTable)
         : symbolTable(symbolTable)
     {
     }
@@ -19,7 +18,7 @@ public:
     virtual void visit(ASTProg& node)
     {
         int i = 1;
-        symbolTable->scopes.push(1);
+        symbolTable->scopes.push(++symbolTable->scope);
         ++symbolTable->lineNumber;
 
         for (auto method : node.methodList) {
@@ -32,7 +31,7 @@ public:
 
     virtual void visit(ASTMethodCall& node)
     {
-        cout << "In AstMethodCall " << endl;
+        // cout << "In AstMethodCall " << endl;
         vector<DataType> typeSignature;
         string funcName = node.getFunctionName();
         funcName.erase(funcName.begin());
@@ -50,7 +49,7 @@ public:
         } else {
             Type = symbolTable->checkFuncSignature(funcName, typeSignature);
         }
-        cout << endl;
+        // cout << endl;
     }
 
     virtual void visit(ASTMethodArg& node)
@@ -102,7 +101,7 @@ public:
     virtual void visit(ASTBlock& node)
     {
         // cout << "In visitASTBlock function. Processing block statements: " << endl;
-        symbolTable->scopes.push(++scope);
+        symbolTable->scopes.push(++symbolTable->scope);
         ++symbolTable->lineNumber;
         for (auto statement : node.statementList) {
             ++symbolTable->lineNumber;
@@ -160,8 +159,8 @@ public:
 
     virtual void visit(ASTStatAssignExpr& node)
     {
-        cout << node.id;
-        cout << " = ";
+        // cout << node.id;
+        // cout << " = ";
         node.expr->accept(*this);
     }
 
@@ -325,7 +324,7 @@ public:
         DataType rightType = Type;
 
         string binop = node.getBinOp();
-
+        // cout << (rightType == INT ? "INT" : "BT") << endl;
         if (leftType != rightType) {
             cout << "Operand type mismatch near line " << symbolTable->lineNumber << endl;
         }

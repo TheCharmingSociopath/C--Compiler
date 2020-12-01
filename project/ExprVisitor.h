@@ -53,7 +53,11 @@ public:
 
     virtual antlrcpp::Any visitVariable(ExprParser::VariableContext *context) = 0;
 
-    virtual antlrcpp::Any visitDeclareLocation(ExprParser::DeclareLocationContext *context) = 0;
+    virtual antlrcpp::Any visitDeclareId(ExprParser::DeclareIdContext *context) = 0;
+
+    virtual antlrcpp::Any visitDeclareId1D(ExprParser::DeclareId1DContext *context) = 0;
+
+    virtual antlrcpp::Any visitDeclareId2D(ExprParser::DeclareId2DContext *context) = 0;
 
     virtual antlrcpp::Any visitDeclareIdentifierAssign(ExprParser::DeclareIdentifierAssignContext *context) = 0;
 
@@ -65,11 +69,11 @@ public:
 
     virtual antlrcpp::Any visitExprRelationalOp(ExprParser::ExprRelationalOpContext *context) = 0;
 
+    virtual antlrcpp::Any visitExprLocation(ExprParser::ExprLocationContext *context) = 0;
+
     virtual antlrcpp::Any visitExprAssignOp(ExprParser::ExprAssignOpContext *context) = 0;
 
     virtual antlrcpp::Any visitExprBoolOp(ExprParser::ExprBoolOpContext *context) = 0;
-
-    virtual antlrcpp::Any visitExprIdentifier(ExprParser::ExprIdentifierContext *context) = 0;
 
     virtual antlrcpp::Any visitExprAddSubOp(ExprParser::ExprAddSubOpContext *context) = 0;
 

@@ -29,7 +29,7 @@ std::set<std::string> reservedWords = { "void", "bool", "int", "unit", "char", "
 
 class SymbolTable {
 public:
-    int lineNumber = 0;
+    int lineNumber = 0, scope = 0;
     std::map<std::pair<std::string, int>, VarSymbol*> VarSymbolTable; // ID, Scope
     std::map<std::string, FuncSymbol*> FuncSymbolTable;
     std::stack<int> scopes;
