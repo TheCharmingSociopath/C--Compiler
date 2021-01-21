@@ -36,12 +36,12 @@ int main(int argc, const char* argv[])
 
     SemanticCheckVisitor* scv = new SemanticCheckVisitor(symbolTable);
     scv->visit(*program_root);
-
+ 
     cout << "======================= IR ==================" << endl;
 
-    // IRVisitor *irv = new IRVisitor();
-    // irv->visit(*program_root);
-    // TheModule->print(llvm::errs(), nullptr);
+    IRVisitor *irv = new IRVisitor();
+    irv->visit(*program_root);
+    TheModule->print(llvm::errs(), nullptr);
     
     return 0;
 }
